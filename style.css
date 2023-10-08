@@ -1,0 +1,31 @@
+*{
+    text-align: center;
+}
+.container{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 25% 1fr 1fr 25%;
+    height: 90vh;
+    gap: 1rem;
+}
+.highlight{
+    opacity: 0.5;
+    box-shadow: 10px 5px 5px black;
+}
+.card{
+    border-radius: 1rem;
+}
+.red{
+    background-color: red;
+    grid-column: 2;
+}
+.green{
+    background-color: green;
+}
+.blue{
+    background-color: blue;
+    grid-column: 2;
+}
+.yellow{
+    background-color: yellow;
+}
