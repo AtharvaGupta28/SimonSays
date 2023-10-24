@@ -2,7 +2,7 @@ var answer=[];
 var currentLevel=1;
 var question=[], p;
 var colours=["red","green","blue","yellow"];
-$(".card").on("click",function(event){
+$(".card").click(function(event){
     console.log("You clicked "+this.innerHTML);
     answer.push(this.innerHTML);
 });
@@ -13,14 +13,14 @@ document.addEventListener("keydown",function(event){
         startGame();
     }
 });
-function startGame(){
+async function startGame(){
     var status=$("#status");
     status.html("Level"+currentLevel);
     currentLevel++;
     question.push(generateRandom());
     console.log(question);
     answer.length=0;
-    highlighter(0);
+    await highlighter(0);
 }
 function checkAnswer(){
     setTimeout(function(){
@@ -47,11 +47,11 @@ function checkAnswer(){
         }
     } , 4000+currentLevel*500);
 }
-function highlighter(index){
-        setTimeout(function(){
+async function highlighter(index){
+        setTimeout(async function(){
             if(index<question.length){
-            $("."+colours[question[index]]).fadeIn(100).fadeOut(100).fadeIn(1000);
-            highlighter(++index);
+                await fade(index);
+                highlighter(++index);
             }
             else{
                 checkAnswer();
@@ -59,6 +59,13 @@ function highlighter(index){
         }, 200);
     //$("."+colours[index]).fadeIn(100).fadeOut(100).fadeIn(1000);
     
+}
+async function fade(index){
+    //await $("."+colours[question[index]]).fadeIn(100).fadeOut(100).fadeIn(1000);
+    $("."+colours[question[index]]).fadeToggle(200).promise().done(function() {
+        $("."+colours[question[index]]).fadeToggle(200);
+    });
+    setTimeout(async function(){},1000);
 }
 function restart(){
     currentLevel=1;
